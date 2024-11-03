@@ -51,7 +51,7 @@ def get_info_from_one_article(one_article):
     try:
         date = datetime.datetime.strptime(date, "%m/%d/%Y %H:%M:%S")
         ymd = date.strftime("%Y年%m月%d日")
-    except Exception:
+    except ValueError:
         ymd = ""
     # 文字化け防止 & 年月+タイトルを冒頭に追加
     info_dict["TEXT_HTML"] = f'<meta charset="UTF-8">\n<h1>{ymd} {title}</h1>\n' + main_text
@@ -75,7 +75,7 @@ def save_one_article_as_html(info_dict: dict):
             # YYYYMMDD形式に変換
             ymd = date.strftime("%Y年%m月%d日")
             ym = date.strftime("%Y%m")
-        except Exception:
+        except ValueError:
             ymd = ""
             ym = "no_date"
         # 年月別のフォルダを作成してhtmlファイルとして保存
